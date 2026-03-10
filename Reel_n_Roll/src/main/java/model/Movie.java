@@ -1,9 +1,6 @@
 package model;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class movie {
+public class Movie {
     private int id;
     private String title;
     private String genre;
@@ -11,6 +8,18 @@ public class movie {
     private int duration;
     private String rating;
     private String description;
+
+    public Movie() {};
+
+    public Movie(int id, String title, String genre, String language, int duration, String rating, String description) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.language = language;
+        this.duration = duration;
+        this.rating = rating;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -69,4 +78,3 @@ public class movie {
     }
 
 }
-
