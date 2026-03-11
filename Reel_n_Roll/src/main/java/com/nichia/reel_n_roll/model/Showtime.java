@@ -1,9 +1,9 @@
-package model;
+package com.nichia.reel_n_roll.model;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class showtime {
+public class Showtime {
     private int showId;
     private int theatreId;
     private int movieId;

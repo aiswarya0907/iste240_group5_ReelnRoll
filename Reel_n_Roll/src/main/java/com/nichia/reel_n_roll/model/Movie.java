@@ -1,4 +1,4 @@
-package model;
+package com.nichia.reel_n_roll.model;
 
 public class Movie {
     private int id;
