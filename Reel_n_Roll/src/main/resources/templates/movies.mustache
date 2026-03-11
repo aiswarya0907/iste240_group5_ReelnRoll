@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies - Reel n Roll</title>
+</head>
+<body>
+<h1>Now Showing</h1>
+<table>
+<tr>
+        <th>Id</th>
+        <th>Title </th>
+        <th>Genre </th>
+        <th>Language </th>
+        <th> Duration</th>
+        <th>Rating </th>
+        <th>Description </th>
+    </tr>
+    {{#movies}}
+    <tr>
+       <td>{{id}}</td>
+        <td> {{title}} </td>
+        <td> {{genre}} </td>
+        <td> {{language}}</td>
+        <td> {{duration}} </td>
+        <td>{{rating}} </td>
+        <td>{{description}} </td>
+    </tr>
+    {{/movies}}
+</table>
+<a href="/index.html">Back to Home</a>
+</body>
+</html>
