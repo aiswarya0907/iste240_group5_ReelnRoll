@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.nichia.reel_n_roll.model.Showtime;
 
 @Controller
 public class ReelNRollController {
@@ -40,5 +41,23 @@ public class ReelNRollController {
     public String addSuccess(@PathVariable String entityName, Model model) {
         model.addAttribute("entityName", entityName);
         return "moviesuccess";
+    }
+
+    @GetMapping("/showtimes")
+    public String viewShowtimes (Model model) {
+        model.addAttribute("showtimes", this.reelNRollService.getAllShowtimes());
+        return "showtimes";
+    }
+
+    @GetMapping("/addshowtime")
+    public String addShowtimeForm(Model model) {
+        model.addAttribute("movies", this.reelNRollService.getAllMovies());
+        return "addshowtime";
+    }
+
+    @PostMapping ("/addshowtime")
+    public String addShowtime(Showtime showtime) {
+        this.reelNRollService.addShowtime(showtime);
+        return "redirect:/add/success/showtime";
     }
 }
