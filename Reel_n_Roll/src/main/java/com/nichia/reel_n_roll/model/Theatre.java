@@ -1,8 +1,6 @@
 package com.nichia.reel_n_roll.model;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class Theatre {
     private Long theatreId;  //using long type to hold larger numbers unlike int
     private String theatreName; //theatre name
