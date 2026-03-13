@@ -1,5 +1,4 @@
 package com.nichia.reel_n_roll;
-
 import com.nichia.reel_n_roll.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nichia.reel_n_roll.model.Showtime;
 import com.nichia.reel_n_roll.model.Theatre;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import com.nichia.reel_n_roll.model.Seat;
 @Controller
 public class ReelNRollController {
 
@@ -87,7 +86,24 @@ public class ReelNRollController {
     public String theatreSuccess(Model model) {
         model.addAttribute("entityName", "Theatre");
         return "theatresuccess"; // matches theatresuccess.mustache
+    }@GetMapping("/seats")
+    public String viewSeats(Model model) {
+        model.addAttribute("seats", reelNRollService.getAllSeats());
+        return "seats";
     }
-}
+
+    @GetMapping("/seats/add")
+    public String addSeatForm(Model model) {
+        model.addAttribute("theatres", reelNRollService.getAllTheatres());
+        return "add-seat";
+    }
+
+    @PostMapping("/seats/add")
+    public String addSeat(@ModelAttribute Seat seat) {
+        reelNRollService.addSeat(seat);
+        return "redirect:/add/success/seat";
+    }
+    }
+
 
 

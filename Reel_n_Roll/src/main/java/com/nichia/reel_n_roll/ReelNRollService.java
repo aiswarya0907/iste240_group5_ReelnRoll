@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import com.nichia.reel_n_roll.model.Theatre;
+import com.nichia.reel_n_roll.model.Seat;
 
 @Service
 public class ReelNRollService {
     private List<Movie> movies = new ArrayList<>();
     private List <Showtime> showtimes = new ArrayList<>();
     private List<Theatre> theatres = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
 
     public ReelNRollService() {
             movies.add(new Movie(1, "Inception", "Sci-Fi", "English", 148, "PG-13", "A mind-bending thriller"));
@@ -33,6 +35,11 @@ public class ReelNRollService {
 
             theatres.add(t1);
             theatres.add(t2);
+
+        seats.add(new Seat(1L, "A1", "VIP", false, t1));
+        seats.add(new Seat(2L, "A2", "VIP", false, t1));
+        seats.add(new Seat(3L, "B1", "Standard", false, t2));
+        seats.add(new Seat(4L, "B2", "Standard", true, t2));
         }
         public List<Movie> getAllMovies() { return movies; }
         public void addMovie(Movie m) { movies.add(m); }
@@ -45,7 +52,10 @@ public class ReelNRollService {
 
         public void addTheatre(Theatre t) {
             theatres.add(t);
+
         }
+    public List<Seat> getAllSeats() { return seats; }
+    public void addSeat(Seat seat) { seats.add(seat); }
 
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seats</title>
+</head>
+<body>
+    <h1>All Seats</h1>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Seat Number</th>
+            <th>Type</th>
+            <th>Availability</th>
+            <th>Theatre</th>
+        </tr>
+        {{#seats}}
+        <tr>
+            <td>{{seatId}}</td>
+            <td>{{seatNumber}}</td>
+            <td>{{seatType}}</td>
+            <td>{{isBooked}}</td>
+            <td>{{theatre.theatreName}}</td>
+        </tr>
+        {{/seats}}
+    </table>
+
+    <br>
+    <a href="/">Back to Home</a>
+    <a href="/seats/add">Add New Seat</a>
+</body>
+</html>
