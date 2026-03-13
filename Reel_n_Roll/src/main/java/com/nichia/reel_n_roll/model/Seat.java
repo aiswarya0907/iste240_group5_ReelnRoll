@@ -1,14 +1,26 @@
 package com.nichia.reel_n_roll.model;
 
-import org.springframework.stereotype.Component;
 
-@Component
+
+
 public class Seat {
 
     private Long seatId;
     private String seatNumber;
     private String seatType;
     private boolean isBooked;
+    private Theatre theatre;
+
+    public Seat() {}
+
+    public Seat(Long seatId, String seatNumber, String seatType, boolean isBooked, Theatre theatre) {
+        this.seatId = seatId;
+        this.seatNumber = seatNumber;
+        this.seatType = seatType;
+        this.isBooked = isBooked;
+        this.theatre = theatre;
+
+    }
 
     public Long getSeatId() {
         return seatId;
@@ -35,4 +47,10 @@ public class Seat {
     public void setIsBooked(boolean isBooked) {
         this.isBooked = isBooked;
     }
+
+    public Theatre getTheatre() { return theatre; }
+    public void setTheatre(Theatre theatre) { this.theatre = theatre; }
+
+
+
 }
