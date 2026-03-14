@@ -41,7 +41,7 @@ public class Seat {
     public void setSeatType(String seatType) {
         this.seatType = seatType;
     }
-    public boolean getIsBooked() {
+    public boolean isBooked() {
         return isBooked;
     }
     public void setIsBooked(boolean isBooked) {

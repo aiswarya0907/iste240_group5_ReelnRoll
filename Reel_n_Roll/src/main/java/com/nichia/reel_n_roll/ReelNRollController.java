@@ -100,8 +100,17 @@ public class ReelNRollController {
 
     @PostMapping("/seats/add")
     public String addSeat(@ModelAttribute Seat seat) {
+        // Find the matching theatre from the service and set it
+        Long theatreId = seat.getTheatre().getTheatreId();
+        Theatre theatre = reelNRollService.getAllTheatres()
+                .stream()
+                .filter(t -> t.getTheatreId().equals(theatreId))
+                .findFirst()
+                .orElse(null);
+        seat.setTheatre(theatre);
         reelNRollService.addSeat(seat);
         return "redirect:/add/success/seat";
+
     }
     }
 

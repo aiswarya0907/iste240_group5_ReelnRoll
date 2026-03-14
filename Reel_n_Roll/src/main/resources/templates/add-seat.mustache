@@ -10,11 +10,7 @@
     <form action="/seats/add" method="post">
         Seat Number: <input type="text" name="seatNumber" required><br><br>
         Seat Type: <input type="text" name="seatType" required><br><br>
-        Is Booked:
-        <select name="isBooked">
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-        </select><br><br>
+
         Theatre:
         <select name="theatre.theatreId">
             {{#theatres}}

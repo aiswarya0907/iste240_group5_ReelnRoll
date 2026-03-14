@@ -9,18 +9,15 @@
 
     <table border="1">
         <tr>
-            <th>ID</th>
             <th>Seat Number</th>
             <th>Type</th>
-            <th>Availability</th>
+
             <th>Theatre</th>
         </tr>
         {{#seats}}
         <tr>
-            <td>{{seatId}}</td>
             <td>{{seatNumber}}</td>
             <td>{{seatType}}</td>
-            <td>{{isBooked}}</td>
             <td>{{theatre.theatreName}}</td>
         </tr>
         {{/seats}}
