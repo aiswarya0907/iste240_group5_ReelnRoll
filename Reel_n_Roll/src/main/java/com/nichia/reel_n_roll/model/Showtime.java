@@ -8,6 +8,7 @@ public class Showtime {
     private String showDate;
     private String showTime;
 
+    public Showtime() {}
 
     public Showtime(int showId, Movie movie, String screenNumber, String showDate, String showTime)
     {
