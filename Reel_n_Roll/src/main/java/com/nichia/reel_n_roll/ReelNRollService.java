@@ -44,8 +44,8 @@ public class ReelNRollService {
         }
 
         public void addTheatre(Theatre t) {
+            t.setTheatreId((long) (theatres.size() + 1));
             theatres.add(t);
-
         }
     public List<Seat> getAllSeats() { return seats; }
     public void addSeat(Seat seat) { seats.add(seat); }
