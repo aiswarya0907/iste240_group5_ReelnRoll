@@ -10,17 +10,18 @@ import com.nichia.reel_n_roll.model.Showtime;
 import com.nichia.reel_n_roll.model.Theatre;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.nichia.reel_n_roll.model.Seat;
+
 @Controller
 public class ReelNRollController {
 
     @Autowired
     private ReelNRollService reelNRollService;
 
-    //@GetMapping("/")
+    @GetMapping("/")
     public String home() {
         return "index";
-    }
-    //
+   }
+
     @GetMapping("/movies")
     public String viewMovies(Model model) {
         model.addAttribute("movies", this.reelNRollService.getAllMovies());
@@ -36,12 +37,6 @@ public class ReelNRollController {
     public String addMovie(Movie movie) {
         this.reelNRollService.addMovie(movie);
         return "redirect:/add/success/movie";
-    }
-
-    @GetMapping("/add/success/{entityName}")
-    public String addSuccess(@PathVariable String entityName, Model model) {
-        model.addAttribute("entityName", entityName);
-        return "moviesuccess";
     }
 
     @GetMapping("/showtimes")
@@ -65,23 +60,21 @@ public class ReelNRollController {
     @GetMapping("/theatre")
     public String viewTheatres(Model model) {
         model.addAttribute("theatres", this.reelNRollService.getAllTheatres());
-        return "theatre";
+        return "theatre"; // must match theatre.mustache in templates folder
     }
-
 
     @GetMapping("/addtheatre")
     public String addTheatreForm(Model model) {
         model.addAttribute("theatre", new Theatre());
-        return "add-theatre";
+        return "add-theatre"; // matches add-theatre.mustache
     }
 
 
     @PostMapping("/addtheatre")
     public String addTheatreSubmit(@ModelAttribute Theatre theatre) {
         this.reelNRollService.addTheatre(theatre);
-        return "redirect:/add/success/theatre";
+        return "redirect:/add/success/theatre"; // success page for theatre
     }
-
 
     @GetMapping("/seats")
     public String viewSeats(Model model) {
@@ -100,7 +93,14 @@ public class ReelNRollController {
         reelNRollService.addSeat(seat);
         return "redirect:/add/success/seat";
     }
+
+    @GetMapping("/add/success/{entityName}")
+    public String addSuccess(@PathVariable String entityName, Model model) {
+        model.addAttribute("entityName", entityName);
+        return "success";
     }
+
+}
 
 
 
