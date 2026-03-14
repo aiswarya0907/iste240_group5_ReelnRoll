@@ -11,20 +11,24 @@
         <tr>
             <th>Seat Number</th>
             <th>Type</th>
-
-            <th>Theatre</th>
+            <th>Theatre ID</th>
         </tr>
         {{#seats}}
         <tr>
             <td>{{seatNumber}}</td>
             <td>{{seatType}}</td>
-            <td>{{theatre.theatreName}}</td>
+            {{#theatre}}
+            <td>{{theatreId}}</td>
+            {{/theatre}}
+            {{^theatre}}
+            <td>N/A</td>
+            {{/theatre}}
         </tr>
         {{/seats}}
     </table>
 
     <br>
-    <a href="/">Back to Home</a>
+    <a href="/index.html">Back to Home</a>
     <a href="/seats/add">Add New Seat</a>
 </body>
 </html>
