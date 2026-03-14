@@ -3,12 +3,9 @@ import com.nichia.reel_n_roll.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import com.nichia.reel_n_roll.model.Showtime;
 import com.nichia.reel_n_roll.model.Theatre;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import com.nichia.reel_n_roll.model.Seat;
 
 @Controller
@@ -51,8 +48,14 @@ public class ReelNRollController {
         return "addshowtime";
     }
 
-    @PostMapping ("/addshowtime")
-    public String addShowtime(Showtime showtime) {
+    @PostMapping("/addshowtime")
+    public String addShowtime(Showtime showtime, @RequestParam int movieId) {
+        Movie movie = this.reelNRollService.getAllMovies()
+                .stream()
+                .filter(m -> m.getId() == movieId)
+                .findFirst()
+                .orElse(null);
+        showtime.setMovie(movie);
         this.reelNRollService.addShowtime(showtime);
         return "redirect:/add/success/showtime";
     }
