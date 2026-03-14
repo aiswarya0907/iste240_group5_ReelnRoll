@@ -49,13 +49,7 @@ public class ReelNRollController {
     }
 
     @PostMapping("/addshowtime")
-    public String addShowtime(Showtime showtime, @RequestParam int movieId) {
-        Movie movie = this.reelNRollService.getAllMovies()
-                .stream()
-                .filter(m -> m.getId() == movieId)
-                .findFirst()
-                .orElse(null);
-        showtime.setMovie(movie);
+    public String addShowtime(@ModelAttribute Showtime showtime) {
         this.reelNRollService.addShowtime(showtime);
         return "redirect:/add/success/showtime";
     }
