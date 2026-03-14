@@ -10,17 +10,18 @@ import com.nichia.reel_n_roll.model.Showtime;
 import com.nichia.reel_n_roll.model.Theatre;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.nichia.reel_n_roll.model.Seat;
+
 @Controller
 public class ReelNRollController {
 
     @Autowired
     private ReelNRollService reelNRollService;
 
-    //@GetMapping("/")
+    @GetMapping("/")
     public String home() {
         return "index";
-    }
-    //
+   }
+
     @GetMapping("/movies")
     public String viewMovies(Model model) {
         model.addAttribute("movies", this.reelNRollService.getAllMovies());
@@ -36,12 +37,6 @@ public class ReelNRollController {
     public String addMovie(Movie movie) {
         this.reelNRollService.addMovie(movie);
         return "redirect:/add/success/movie";
-    }
-
-    @GetMapping("/add/success/{entityName}")
-    public String addSuccess(@PathVariable String entityName, Model model) {
-        model.addAttribute("entityName", entityName);
-        return "moviesuccess";
     }
 
     @GetMapping("/showtimes")
@@ -81,12 +76,7 @@ public class ReelNRollController {
         return "redirect:/add/success/theatre"; // success page for theatre
     }
 
-
-    @GetMapping("/add/success/theatre")
-    public String theatreSuccess(Model model) {
-        model.addAttribute("entityName", "Theatre");
-        return "theatresuccess"; // matches theatresuccess.mustache
-    }@GetMapping("/seats")
+    @GetMapping("/seats")
     public String viewSeats(Model model) {
         model.addAttribute("seats", reelNRollService.getAllSeats());
         return "seats";
@@ -112,7 +102,14 @@ public class ReelNRollController {
         return "redirect:/add/success/seat";
 
     }
+
+    @GetMapping("/add/success/{entityName}")
+    public String addSuccess(@PathVariable String entityName, Model model) {
+        model.addAttribute("entityName", entityName);
+        return "success";
     }
+
+}
 
 
 
