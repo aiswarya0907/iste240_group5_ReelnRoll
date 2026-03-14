@@ -49,7 +49,13 @@ public class ReelNRollController {
     }
 
     @PostMapping("/addshowtime")
-    public String addShowtime(@ModelAttribute Showtime showtime) {
+    public String addShowtime(Showtime showtime, @RequestParam int movieId) {
+        Movie movie = this.reelNRollService.getAllMovies()
+                .stream()
+                .filter(m -> m.getId() == movieId)
+                .findFirst()
+                .orElse(null);
+        showtime.setMovie(movie);
         this.reelNRollService.addShowtime(showtime);
         return "redirect:/add/success/showtime";
     }
@@ -57,20 +63,20 @@ public class ReelNRollController {
     @GetMapping("/theatre")
     public String viewTheatres(Model model) {
         model.addAttribute("theatres", this.reelNRollService.getAllTheatres());
-        return "theatre";
+        return "theatre"; // must match theatre.mustache in templates folder
     }
 
     @GetMapping("/addtheatre")
     public String addTheatreForm(Model model) {
         model.addAttribute("theatre", new Theatre());
-        return "add-theatre";
+        return "add-theatre"; // matches add-theatre.mustache
     }
 
 
     @PostMapping("/addtheatre")
     public String addTheatreSubmit(@ModelAttribute Theatre theatre) {
         this.reelNRollService.addTheatre(theatre);
-        return "redirect:/add/success/theatre"; //success page i added
+        return "redirect:/add/success/theatre"; // success page for theatre
     }
 
     @GetMapping("/seats")
@@ -87,17 +93,8 @@ public class ReelNRollController {
 
     @PostMapping("/seats/add")
     public String addSeat(@ModelAttribute Seat seat) {
-        // Find the matching theatre from the service and set it
-        Long theatreId = seat.getTheatre().getTheatreId();
-        Theatre theatre = reelNRollService.getAllTheatres()
-                .stream()
-                .filter(t -> t.getTheatreId().equals(theatreId))
-                .findFirst()
-                .orElse(null);
-        seat.setTheatre(theatre);
         reelNRollService.addSeat(seat);
         return "redirect:/add/success/seat";
-
     }
 
     @GetMapping("/add/success/{entityName}")
