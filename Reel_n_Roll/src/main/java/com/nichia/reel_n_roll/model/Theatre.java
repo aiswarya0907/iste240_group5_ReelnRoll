@@ -9,6 +9,13 @@ public class Theatre {
 
     public Theatre() {}
 
+    public Theatre(Long theatreId, String theatreName, String location, int totalScreens) {
+        this.theatreId = theatreId;
+        this.theatreName = theatreName;
+        this.location = location;
+        this.totalScreens = totalScreens;
+    }
+
     public Long getTheatreId() { //allows other classes to read the theatreId value
         return theatreId;
     }

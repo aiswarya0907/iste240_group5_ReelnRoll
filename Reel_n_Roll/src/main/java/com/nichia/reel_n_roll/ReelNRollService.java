@@ -21,17 +21,10 @@ public class ReelNRollService {
             showtimes.add(new Showtime(1, movies.get(0), "Screen 1", "18-03-2026", "5:00 PM"));
             showtimes.add(new Showtime(2, movies.get(1), "Screen 2", "20-03-2026", "6:00 PM"));
             showtimes.add(new Showtime(3, movies.get(2), "Screen 3", "23-03-2026", "7:30 PM"));
-            Theatre t1 = new Theatre();
-            t1.setTheatreId(1L);
-            t1.setTheatreName("Reel Cinemas");
-            t1.setLocation("Dubai Mall");
-            t1.setTotalScreens(12);
 
-            Theatre t2 = new Theatre();
-            t2.setTheatreId(2L);
-            t2.setTheatreName("VOX Cinemas");
-            t2.setLocation("Mall of the Emirates");
-            t2.setTotalScreens(10);
+
+            Theatre t1 = new Theatre(1L, "Reel Cinemas", "Dubai Mall", 12);
+            Theatre t2 = new Theatre(2L, "VOX Cinemas", "Mall of the Emirates", 10);
 
             theatres.add(t1);
             theatres.add(t2);
