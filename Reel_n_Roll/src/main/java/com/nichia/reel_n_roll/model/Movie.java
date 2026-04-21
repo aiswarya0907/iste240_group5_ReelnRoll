@@ -1,6 +1,14 @@
 package com.nichia.reel_n_roll.model;
+//Aiswarya Prasanth
+//UID: 764003038
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="movies")
 public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String genre;
