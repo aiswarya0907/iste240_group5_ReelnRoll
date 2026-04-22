@@ -1,8 +1,5 @@
 package com.nichia.reel_n_roll.model;
 
-
-
-
 public class Seat {
 
     private Long seatId;
@@ -11,7 +8,9 @@ public class Seat {
     private boolean isBooked;
     private Theatre theatre;
 
-    public Seat() {}
+    public Seat() {
+        this.theatre = new Theatre();
+    }
 
     public Seat(Long seatId, String seatNumber, String seatType, boolean isBooked, Theatre theatre) {
         this.seatId = seatId;

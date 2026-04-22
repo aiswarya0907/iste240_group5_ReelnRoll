@@ -7,6 +7,7 @@ public class Showtime {
     private String screenNumber;
     private String showDate;
     private String showTime;
+    private int movieId;
 
     public Showtime() {}
 
@@ -18,6 +19,11 @@ public class Showtime {
         this.showDate = showDate;
         this.showTime = showTime;
     }
+
+
+
+    public int getMovieId() { return movieId; }
+    public void setMovieId(int movieId) { this.movieId = movieId; }
 
     public int getShowId() {
         return showId;
@@ -54,4 +60,3 @@ public class Showtime {
         this.showTime = showTime;
     }
 }
-
