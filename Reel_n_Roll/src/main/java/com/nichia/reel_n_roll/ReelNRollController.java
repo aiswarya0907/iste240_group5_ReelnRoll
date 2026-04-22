@@ -60,25 +60,6 @@ public class ReelNRollController {
         return "redirect:/add/success/showtime";
     }
 
-    @GetMapping("/theatre")
-    public String viewTheatres(Model model) {
-        model.addAttribute("theatres", this.reelNRollService.getAllTheatres());
-        return "theatre";
-    }
-
-    @GetMapping("/addtheatre")
-    public String addTheatreForm(Model model) {
-        model.addAttribute("theatre", new Theatre());
-        return "add-theatre";
-    }
-
-
-    @PostMapping("/addtheatre")
-    public String addTheatreSubmit(@ModelAttribute Theatre theatre) {
-        this.reelNRollService.addTheatre(theatre);
-        return "redirect:/add/success/theatre"; //success page i added
-    }
-
     @GetMapping("/seats")
     public String viewSeats(Model model) {
         model.addAttribute("seats", reelNRollService.getAllSeats());
