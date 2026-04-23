@@ -1,3 +1,8 @@
+/*
+Name: Sonali Bugwandin
+University ID: 403003462
+*/
+
 package com.nichia.reel_n_roll.model;
 
 import jakarta.persistence.*;
