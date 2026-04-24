@@ -1,42 +1,50 @@
+// Reema Maryam Naheem 397000990
 package com.nichia.reel_n_roll.model;
 
-public class Showtime {
-    private int showId;
-    private Movie movie;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "showtime")
+public class Showtime {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer showId;
+
+    @Column(name = "movie_id", nullable = false)
+    private Integer movieId;
+
+    @Column(name = "screen_number", length = 50, nullable = false)
     private String screenNumber;
+
+    @Column(name = "show_date", nullable = false)
     private String showDate;
+
+    @Column(name = "show_time", nullable = false)
     private String showTime;
-    private int movieId;
 
     public Showtime() {}
 
-    public Showtime(int showId, Movie movie, String screenNumber, String showDate, String showTime)
-    {
+    public Showtime(Integer showId, Integer movieId, String screenNumber, String showDate, String showTime) {
         this.showId = showId;
-        this.movie= movie;
+        this.movieId = movieId;
         this.screenNumber = screenNumber;
         this.showDate = showDate;
         this.showTime = showTime;
     }
 
-
-
-    public int getMovieId() { return movieId; }
-    public void setMovieId(int movieId) { this.movieId = movieId; }
-
-    public int getShowId() {
+    public Integer getShowId() {
         return showId;
     }
-    public void setShowId(int showId) {
+    public void setShowId(Integer showId) {
         this.showId = showId;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public Integer getMovieId() {
+        return movieId;
     }
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
     }
 
     public String getScreenNumber() {

@@ -1,0 +1,264 @@
+<!--Reema Maryam Naheem 397000990-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Showtime </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #121212;
+            color: white;
+        }
+
+        .card {
+            background: #1e1e1e;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .table {
+            color: white;
+        }
+
+        .table thead {
+            background: #343a40;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        .form-control {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .form-control::placeholder {
+            color: #888;
+        }
+
+        .form-control:focus {
+            background: #2a2a2a;
+            color: white;
+            border-color: #888;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4"> Showtime </h1>
+
+    <div class="mb-3">
+        <a href="/index.html" class="btn btn-secondary">🏠︎ Back to Home</a>
+    </div>
+
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3">
+
+            <input type="hidden" id="showId">
+
+            <div class="col-md-3">
+                <input type="number" id="movieId" class="form-control" placeholder="Movie ID">
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" id="screenNumber" class="form-control" placeholder="Screen Number">
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" id="showDate" class="form-control" placeholder="Show Date">
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" id="showTime" class="form-control" placeholder="Show Time">
+            </div>
+
+            <div class="col-md-12 d-grid">
+                <button class="btn btn-success" onclick="saveShowtime()">Save Showtime</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3">
+
+            <div class="col-md-9">
+                <input type="text" id="searchText" class="form-control" placeholder="Search by Screen Number">
+            </div>
+
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-primary" onclick="searchShowtime()">Search</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card p-4">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Movie ID</th>
+                    <th>Screen</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody id="tableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        loadShowtimes();
+    });
+
+    function loadShowtimes() {
+        fetch("/api/showtime")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                showTable(data);
+            });
+    }
+
+    function showTable(data) {
+        let tr = "";
+        data.forEach(function(show) {
+            tr += `
+                <tr>
+                    <td>${show.showId}</td>
+                    <td>${show.movieId}</td>
+                    <td>${show.screenNumber}</td>
+                    <td>${show.showDate}</td>
+                    <td>${show.showTime}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm me-1"
+                            onclick="editShowtime(${show.showId}, ${show.movieId}, '${show.screenNumber}', '${show.showDate}', '${show.showTime}')">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="deleteShowtime(${show.showId})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("tableBody").innerHTML = tr;
+    }
+
+    function saveShowtime() {
+        let id = document.getElementById("showId").value;
+
+        let showtime = {
+            movieId: parseInt(document.getElementById("movieId").value),
+            screenNumber: document.getElementById("screenNumber").value,
+            showDate: document.getElementById("showDate").value,
+            showTime: document.getElementById("showTime").value
+        };
+
+        if (id === "") {
+            fetch("/api/showtime", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(showtime)
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function() {
+                    clearForm();
+                    loadShowtimes();
+                });
+
+        } else {
+            fetch("/api/showtime/" + id, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(showtime)
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function() {
+                    clearForm();
+                    loadShowtimes();
+                });
+        }
+    }
+
+    function editShowtime(id, movieId, screenNumber, showDate, showTime) {
+        document.getElementById("showId").value = id;
+        document.getElementById("movieId").value = movieId;
+        document.getElementById("screenNumber").value = screenNumber;
+        document.getElementById("showDate").value = showDate;
+        document.getElementById("showTime").value = showTime;
+    }
+
+    function deleteShowtime(id) {
+        fetch("/api/showtime/" + id, {
+            method: "DELETE"
+        })
+            .then(function() {
+                loadShowtimes();
+            });
+    }
+
+    function searchShowtime() {
+        let screenNumber = document.getElementById("searchText").value;
+
+        fetch("/api/showtime/search?screenNumber=" + screenNumber)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                showTable(data);
+            });
+    }
+
+    function clearForm() {
+        document.getElementById("showId").value = "";
+        document.getElementById("movieId").value = "";
+        document.getElementById("screenNumber").value = "";
+        document.getElementById("showDate").value = "";
+        document.getElementById("showTime").value = "";
+    }
+
+</script>
+
+</body>
+</html>
