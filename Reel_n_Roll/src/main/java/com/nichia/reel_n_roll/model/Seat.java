@@ -1,35 +1,49 @@
 package com.nichia.reel_n_roll.model;
 
+// Tanya Navani - Student ID: 405008840
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "seats")
 public class Seat {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seatId;
+
     private String seatNumber;
     private String seatType;
-    private boolean isBooked;
-    private Theatre theatre;
+    private boolean booked;
+    private Long theatreId;
 
     public Seat() {
-        this.theatre = new Theatre();
     }
 
-    public Seat(Long seatId, String seatNumber, String seatType, boolean isBooked, Theatre theatre) {
+    public Seat(Long seatId, String seatNumber, String seatType, boolean booked, Long theatreId) {
         this.seatId = seatId;
         this.seatNumber = seatNumber;
         this.seatType = seatType;
-        this.isBooked = isBooked;
-        this.theatre = theatre;
-
+        this.booked = booked;
+        this.theatreId = theatreId;
     }
 
     public Long getSeatId() {
         return seatId;
     }
+
     public void setSeatId(Long seatId) {
         this.seatId = seatId;
     }
+
     public String getSeatNumber() {
         return seatNumber;
     }
+
     public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
@@ -37,19 +51,24 @@ public class Seat {
     public String getSeatType() {
         return seatType;
     }
+
     public void setSeatType(String seatType) {
         this.seatType = seatType;
     }
+
     public boolean isBooked() {
-        return isBooked;
-    }
-    public void setIsBooked(boolean isBooked) {
-        this.isBooked = isBooked;
+        return booked;
     }
 
-    public Theatre getTheatre() { return theatre; }
-    public void setTheatre(Theatre theatre) { this.theatre = theatre; }
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
 
+    public Long getTheatreId() {
+        return theatreId;
+    }
 
-
+    public void setTheatreId(Long theatreId) {
+        this.theatreId = theatreId;
+    }
 }
