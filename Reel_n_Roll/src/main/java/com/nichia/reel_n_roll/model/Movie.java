@@ -9,17 +9,17 @@ import jakarta.persistence.*;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String title;
     private String genre;
     private String language;
-    private int duration;
+    private Integer duration;
     private String rating;
     private String description;
 
     public Movie() {};
 
-    public Movie(int id, String title, String genre, String language, int duration, String rating, String description) {
+    public Movie(Integer id, String title, String genre, String language, Integer duration, String rating, String description) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -29,11 +29,11 @@ public class Movie {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class Movie {
         this.language = language;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
