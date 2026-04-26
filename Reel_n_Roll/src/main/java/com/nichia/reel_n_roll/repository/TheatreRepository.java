@@ -22,4 +22,6 @@ public interface TheatreRepository extends JpaRepository<Theatre, Long> {
     @Modifying
     @Query("UPDATE Theatre t SET t.theatreName = ?1 WHERE t.theatreId = ?2")
     int updateTheatreNameById(String theatreName, Long id);
+
+    void deleteById(Long id);
 }
