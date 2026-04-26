@@ -42,6 +42,7 @@ public class SeatService {
     }
 
     public Seat updateSeat(Integer id, Seat seatDetails) {
+
         Seat existingSeat = seatRepository.findById(id).orElse(null);
 
         if (existingSeat != null) {

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Repository
@@ -18,11 +18,11 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
     List<Seat> findBySeatTypeContainingIgnoreCase(String seatType);
 
-    @Query("SELECT s FROM Seat s WHERE s.booked = :booked")
-    List<Seat> findByBooked(boolean booked);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Seat s SET s.booked = :booked WHERE s.seatId = :seatId")
-    int updateBookedBySeatId(Integer seatId, boolean booked);
-}
+@Query("SELECT s FROM Seat s WHERE s.booked = :booked")
+List<Seat> findByBooked(@Param("booked") boolean booked);
+
+@Modifying
+@Transactional
+@Query("UPDATE Seat s SET s.booked = :booked WHERE s.seatId = :seatId")
+int updateBookedBySeatId(@Param("seatId") Integer seatId, @Param("booked") boolean booked);}
