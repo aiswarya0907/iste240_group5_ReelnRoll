@@ -1,11 +1,24 @@
+/*
+Name: Sonali Bugwandin
+University ID: 403003462
+Theatre class
+*/
+
 package com.nichia.reel_n_roll.model;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "theatre")
 public class Theatre {
-    private Long theatreId;  //using long type to hold larger numbers unlike int
-    private String theatreName; //theatre name
-    private String location; //location name (Dubai mall, MOE)
-    private int totalScreens; //no. of screens at the location
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long theatreId;
+
+    private String theatreName;
+    private String location;
+    private int totalScreens;
 
     public Theatre() {}
 
@@ -16,11 +29,11 @@ public class Theatre {
         this.totalScreens = totalScreens;
     }
 
-    public Long getTheatreId() { //allows other classes to read the theatreId value
+    public Long getTheatreId() {
         return theatreId;
     }
 
-    public void setTheatreId(Long theatreId) { //allows other classes to se a value
+    public void setTheatreId(Long theatreId) {
         this.theatreId = theatreId;
     }
 
@@ -48,4 +61,3 @@ public class Theatre {
         this.totalScreens = totalScreens;
     }
 }
-
