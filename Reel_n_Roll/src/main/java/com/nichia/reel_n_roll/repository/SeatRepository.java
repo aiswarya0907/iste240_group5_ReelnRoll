@@ -19,7 +19,7 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
     List<Seat> findBySeatTypeContainingIgnoreCase(String seatType);
 
     @Query("SELECT s FROM Seat s WHERE s.booked = :booked")
-    List<Seat> findSeatsByBookedStatus(boolean booked);
+    List<Seat> findByBooked(boolean booked);
 
     @Modifying
     @Transactional

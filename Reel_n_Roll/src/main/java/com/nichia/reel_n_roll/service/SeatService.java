@@ -34,7 +34,7 @@ public class SeatService {
     }
 
     public List<Seat> searchByBookedStatus(boolean booked) {
-        return seatRepository.findSeatsByBookedStatus(booked);
+        return seatRepository.findByBooked(booked);
     }
 
     public Seat createSeat(Seat seat) {
@@ -42,7 +42,6 @@ public class SeatService {
     }
 
     public Seat updateSeat(Integer id, Seat seatDetails) {
-
         Seat existingSeat = seatRepository.findById(id).orElse(null);
 
         if (existingSeat != null) {
