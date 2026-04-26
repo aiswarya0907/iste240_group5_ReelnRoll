@@ -1,9 +1,9 @@
 package com.nichia.reel_n_roll.controller;
 
 // Tanya Navani - Student ID: 405008840
+
 import com.nichia.reel_n_roll.model.Seat;
 import com.nichia.reel_n_roll.service.SeatService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,31 +25,26 @@ public class SeatController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Seat> getSeatById(@PathVariable Long id) {
-        return seatService.getSeatById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Seat getSeatById(@PathVariable Integer id) {
+        return seatService.getSeatById(id);
     }
 
     @GetMapping("/search")
-    public List<Seat> searchSeats(
-            @RequestParam(required = false) String seatNumber,
-            @RequestParam(required = false) String seatType,
-            @RequestParam(required = false) Boolean booked) {
-
-        if (seatNumber != null && !seatNumber.isBlank()) {
-            return seatService.searchBySeatNumber(seatNumber);
+    public List<Seat> searchSeats(@RequestParam(required = false) String seatNumber) {
+        if (seatNumber == null || seatNumber.isEmpty()) {
+            return seatService.getAllSeats();
         }
+        return seatService.searchBySeatNumber(seatNumber);
+    }
 
-        if (seatType != null && !seatType.isBlank()) {
-            return seatService.searchBySeatType(seatType);
-        }
+    @GetMapping("/type")
+    public List<Seat> searchBySeatType(@RequestParam String seatType) {
+        return seatService.searchBySeatType(seatType);
+    }
 
-        if (booked != null) {
-            return seatService.searchByBookedStatus(booked);
-        }
-
-        return seatService.getAllSeats();
+    @GetMapping("/booked")
+    public List<Seat> searchByBookedStatus(@RequestParam boolean booked) {
+        return seatService.searchByBookedStatus(booked);
     }
 
     @PostMapping
@@ -58,34 +53,19 @@ public class SeatController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Seat> updateSeat(@PathVariable Long id, @RequestBody Seat updatedSeat) {
-        return seatService.updateSeat(id, updatedSeat)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Seat updateSeat(@PathVariable Integer id, @RequestBody Seat seat) {
+        return seatService.updateSeat(id, seat);
     }
 
-    @PatchMapping("/{id}/booked")
-    public ResponseEntity<String> updateBookedStatus(
-            @PathVariable Long id,
-            @RequestParam boolean booked) {
-
-        int updatedRows = seatService.updateBookedStatus(id, booked);
-
-        if (updatedRows > 0) {
-            return ResponseEntity.ok("Seat booking status updated successfully.");
-        }
-
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{id}/booked")
+    public String updateBookedStatus(@PathVariable Integer id, @RequestParam boolean booked) {
+        seatService.updateBookedStatus(id, booked);
+        return "Seat booking status updated to: " + booked;
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSeat(@PathVariable Long id) {
-        boolean deleted = seatService.deleteSeat(id);
-
-        if (deleted) {
-            return ResponseEntity.ok("Seat deleted successfully.");
-        }
-
-        return ResponseEntity.notFound().build();
+    public String deleteSeat(@PathVariable Integer id) {
+        seatService.deleteSeat(id);
+        return "Seat deleted successfully";
     }
 }

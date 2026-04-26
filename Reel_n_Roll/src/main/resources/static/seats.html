@@ -1,10 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <!-- Tanya Navani - Student ID: 405008840 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Select Your Seats</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body{
+            background:#121212;
+            color:white;
+        }
+
+        .card{
+            background:#1e1e1e;
+            border:none;
+            border-radius:15px;
+        }
+
+        .table{
+            color:white;
+        }
+
+        .table thead{
+            background:#343a40;
+        }
+
+        .btn{
+            border-radius:10px;
+        }
+
+        h1{
+            font-weight:bold;
+        }
+    </style>
 </head>
+
 <body>
-$END$
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">🎟️ Seat Management</h1>
+
+    <div class="mb-3">
+        <a href="/index.html" class="btn btn-secondary">← Back to Home</a>
+    </div>
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3">
+
+            <input type="hidden" id="seatId">
+
+            <div class="col-md-3">
+                <input type="text" id="seatNumber" class="form-control" placeholder="Seat Number">
+            </div>
+
+            <div class="col-md-3">
+                <select id="seatType" class="form-control">
+                    <option value="">Select Seat Type</option>
+                    <option value="Regular">Regular</option>
+                    <option value="VIP">VIP</option>
+                    <option value="Premium">Premium</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select id="booked" class="form-control">
+                    <option value="false">Available</option>
+                    <option value="true">Booked</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <input type="number" id="theatreId" class="form-control" placeholder="Theatre ID">
+            </div>
+
+            <div class="col-md-12 d-grid">
+                <button class="btn btn-success" onclick="saveSeat()">Save Seat</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3">
+
+            <div class="col-md-9">
+                <input type="text" id="searchText" class="form-control" placeholder="Search by Seat Number">
+            </div>
+
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-primary" onclick="searchSeat()">Search</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card p-4">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Seat Number</th>
+                    <th>Seat Type</th>
+                    <th>Status</th>
+                    <th>Theatre ID</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody id="tableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function(){
+        loadSeats();
+    });
+
+    function loadSeats(){
+
+        $.get("/api/seats", function(data){
+
+            let rows = "";
+
+            data.forEach(function(s){
+
+                let status = s.booked ? "Booked" : "Available";
+
+                rows += `
+            <tr>
+                <td>${s.seatId}</td>
+                <td>${s.seatNumber}</td>
+                <td>${s.seatType}</td>
+                <td>${status}</td>
+                <td>${s.theatreId}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-1"
+                    onclick="editSeat(${s.seatId}, '${s.seatNumber}', '${s.seatType}', ${s.booked}, ${s.theatreId})">
+                    Edit
+                    </button>
+
+                    <button class="btn btn-danger btn-sm"
+                    onclick="deleteSeat(${s.seatId})">
+                    Delete
+                    </button>
+                </td>
+            </tr>
+            `;
+            });
+
+            $("#tableBody").html(rows);
+
+        }).fail(function(xhr){
+            alert("Error loading seats: " + xhr.responseText);
+            console.log(xhr.responseText);
+        });
+    }
+
+    function saveSeat(){
+
+        let id = $("#seatId").val();
+
+        let seat = {
+            seatNumber: $("#seatNumber").val(),
+            seatType: $("#seatType").val(),
+            booked: $("#booked").val() === "true",
+            theatreId: parseInt($("#theatreId").val())
+        };
+
+        if(id == ""){
+
+            $.ajax({
+                url: "/api/seats",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(seat),
+
+                success:function(){
+                    clearForm();
+                    loadSeats();
+                },
+
+                error:function(xhr){
+                    alert("Error saving seat: " + xhr.responseText);
+                    console.log(xhr.responseText);
+                }
+            });
+
+        } else {
+
+            $.ajax({
+                url: "/api/seats/" + id,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(seat),
+
+                success:function(){
+                    clearForm();
+                    loadSeats();
+                },
+
+                error:function(xhr){
+                    alert("Error updating seat: " + xhr.responseText);
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    }
+
+    function editSeat(id, seatNumber, seatType, booked, theatreId){
+
+        $("#seatId").val(id);
+        $("#seatNumber").val(seatNumber);
+        $("#seatType").val(seatType);
+        $("#booked").val(booked.toString());
+        $("#theatreId").val(theatreId);
+    }
+
+    function deleteSeat(id){
+
+        $.ajax({
+            url: "/api/seats/" + id,
+            type: "DELETE",
+
+            success:function(){
+                loadSeats();
+            },
+
+            error:function(xhr){
+                alert("Error deleting seat: " + xhr.responseText);
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    function searchSeat(){
+
+        let seatNumber = $("#searchText").val();
+
+        $.get("/api/seats/search?seatNumber=" + seatNumber, function(data){
+
+            let rows = "";
+
+            data.forEach(function(s){
+
+                let status = s.booked ? "Booked" : "Available";
+
+                rows += `
+            <tr>
+                <td>${s.seatId}</td>
+                <td>${s.seatNumber}</td>
+                <td>${s.seatType}</td>
+                <td>${status}</td>
+                <td>${s.theatreId}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-1"
+                    onclick="editSeat(${s.seatId}, '${s.seatNumber}', '${s.seatType}', ${s.booked}, ${s.theatreId})">
+                    Edit
+                    </button>
+
+                    <button class="btn btn-danger btn-sm"
+                    onclick="deleteSeat(${s.seatId})">
+                    Delete
+                    </button>
+                </td>
+            </tr>
+            `;
+            });
+
+            $("#tableBody").html(rows);
+
+        }).fail(function(xhr){
+            alert("Error searching seat: " + xhr.responseText);
+            console.log(xhr.responseText);
+        });
+    }
+
+    function clearForm(){
+        $("#seatId").val("");
+        $("#seatNumber").val("");
+        $("#seatType").val("");
+        $("#booked").val("false");
+        $("#theatreId").val("");
+    }
+
+</script>
+
 </body>
 </html>

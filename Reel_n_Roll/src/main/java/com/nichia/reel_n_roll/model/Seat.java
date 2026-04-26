@@ -14,17 +14,17 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seatId;
+    private Integer seatId;
 
     private String seatNumber;
     private String seatType;
     private boolean booked;
-    private Long theatreId;
+    private Integer theatreId;
 
     public Seat() {
     }
 
-    public Seat(Long seatId, String seatNumber, String seatType, boolean booked, Long theatreId) {
+    public Seat(Integer seatId, String seatNumber, String seatType, boolean booked, Integer theatreId){
         this.seatId = seatId;
         this.seatNumber = seatNumber;
         this.seatType = seatType;
@@ -32,11 +32,12 @@ public class Seat {
         this.theatreId = theatreId;
     }
 
-    public Long getSeatId() {
+
+         public Integer getSeatId(){
         return seatId;
     }
 
-    public void setSeatId(Long seatId) {
+    public void setSeatId(Integer seatId) {
         this.seatId = seatId;
     }
 
@@ -64,11 +65,11 @@ public class Seat {
         this.booked = booked;
     }
 
-    public Long getTheatreId() {
+    public Integer getTheatreId() {
         return theatreId;
     }
 
-    public void setTheatreId(Long theatreId) {
+    public void setTheatreId(Integer theatreId) {
         this.theatreId = theatreId;
     }
 }

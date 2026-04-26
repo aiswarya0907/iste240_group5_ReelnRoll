@@ -7,7 +7,6 @@ import com.nichia.reel_n_roll.repository.SeatRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SeatService {
@@ -22,8 +21,8 @@ public class SeatService {
         return seatRepository.findAll();
     }
 
-    public Optional<Seat> getSeatById(Long id) {
-        return seatRepository.findById(id);
+    public Seat getSeatById(Integer id) {
+        return seatRepository.findById(id).orElse(null);
     }
 
     public List<Seat> searchBySeatNumber(String seatNumber) {
@@ -42,17 +41,23 @@ public class SeatService {
         return seatRepository.save(seat);
     }
 
-    public Optional<Seat> updateSeat(Long id, Seat updatedSeat) {
-        return seatRepository.findById(id).map(existingSeat -> {
-            existingSeat.setSeatNumber(updatedSeat.getSeatNumber());
-            existingSeat.setSeatType(updatedSeat.getSeatType());
-            existingSeat.setBooked(updatedSeat.isBooked());
-            existingSeat.setTheatreId(updatedSeat.getTheatreId());
+    public Seat updateSeat(Integer id, Seat seatDetails) {
+
+        Seat existingSeat = seatRepository.findById(id).orElse(null);
+
+        if (existingSeat != null) {
+            existingSeat.setSeatNumber(seatDetails.getSeatNumber());
+            existingSeat.setSeatType(seatDetails.getSeatType());
+            existingSeat.setBooked(seatDetails.isBooked());
+            existingSeat.setTheatreId(seatDetails.getTheatreId());
+
             return seatRepository.save(existingSeat);
-        });
+        }
+
+        return null;
     }
 
-    public boolean deleteSeat(Long id) {
+    public boolean deleteSeat(Integer id) {
         if (seatRepository.existsById(id)) {
             seatRepository.deleteById(id);
             return true;
@@ -60,7 +65,7 @@ public class SeatService {
         return false;
     }
 
-    public int updateBookedStatus(Long id, boolean booked) {
+    public int updateBookedStatus(Integer id, boolean booked) {
         return seatRepository.updateBookedBySeatId(id, booked);
     }
 }
