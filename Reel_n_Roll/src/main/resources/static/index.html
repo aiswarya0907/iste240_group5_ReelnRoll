@@ -2,24 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reel n Roll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #121212; color: white; font-family: Arial, sans-serif; }
+        .navbar { background: #1e1e1e; padding: 15px 20px; }
+        .navbar h1 { color: #e94560; margin: 0; font-size: 1.8rem; }
+        .hero { background: #1e1e1e; padding: 40px 20px; text-align: center; margin-bottom: 30px; }
+        .hero h2 { color: #e94560; }
+        .hero p { color: #cccccc; max-width: 600px; margin: 15px auto; }
+        .card { background: #1e1e1e; border: none; border-radius: 10px; padding: 25px; text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h5 { color: #e94560; margin-bottom: 10px; }
+        .card p { color: #cccccc; font-size: 0.9rem; }
+        .btn-main { background: #e94560; color: white; border: none; border-radius: 8px; padding: 8px 20px; }
+        .btn-main:hover { background: #c73652; color: white; }
+        .features { background: #1e1e1e; border-radius: 10px; padding: 20px; margin-top: 30px; }
+        .features h3 { color: #e94560; margin-bottom: 15px; }
+        .features ul { color: #cccccc; }
+        footer { background: #1e1e1e; text-align: center; padding: 15px; color: #cccccc; margin-top: 40px; }
+    </style>
 </head>
-
 <body>
 
-<header>
+<div class="navbar">
     <h1>Reel n Roll</h1>
-</header>
+</div>
 
-<div class="container">
+<div class="hero">
     <h2>Your Movie Experience, Simplified</h2>
-
     <p>
         Reel n Roll is an online movie ticket booking platform that allows users
         to browse currently showing and upcoming movies, view show timings,
         select preferred cinemas, and book seats through an interactive
         seating system, all in one seamless experience.
     </p>
+</div>
+
+<div class="container">
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card" onclick="window.location.href='/movies.html'">
+                <h5>Movies</h5>
+                <p>Browse all currently showing movies</p>
+                <a href="/movies.html" class="btn btn-main">View Movies</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="window.location.href='/Showtime.html'">
+                <h5>Showtimes</h5>
+                <p>Check available show timings</p>
+                <a href="/Showtime.html" class="btn btn-main">View Showtimes</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="window.location.href='/theatre.html'">
+                <h5>Theatres</h5>
+                <p>Find theatres near you</p>
+                <a href="/theatre.html" class="btn btn-main">View Theatres</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="window.location.href='/seats.html'">
+                <h5>Seats</h5>
+                <p>Select and manage seats</p>
+                <a href="/seats.html" class="btn btn-main">View Seats</a>
+            </div>
+        </div>
+    </div>
 
     <div class="features">
         <h3>Key Features</h3>
@@ -31,34 +83,12 @@
         </ul>
     </div>
 
-    <div>
-        <h3>MENU</h3>
-
-        <a href="/movies.html">
-            <button type="button">List of Movies</button>
-        </a>
-        <br>
-
-        <a href="/theatre.html">
-            <button type="button">List of Theatres</button>
-        </a>
-        <br>
-
-        <a href="/Showtime.html">
-            <button type="button">List of Showtimes</button>
-        </a>
-        <br>
-
-        <a href="/seats.html">
-            <button type="button">List of Seats</button>
-        </a>
-    </div>
 </div>
 
 <footer>
     <p>Reel n Roll &copy; 2026</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
