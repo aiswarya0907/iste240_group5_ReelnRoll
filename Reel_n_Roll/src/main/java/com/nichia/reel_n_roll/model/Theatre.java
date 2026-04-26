@@ -1,6 +1,7 @@
 /*
 Name: Sonali Bugwandin
 University ID: 403003462
+Theatre class
 */
 
 package com.nichia.reel_n_roll.model;

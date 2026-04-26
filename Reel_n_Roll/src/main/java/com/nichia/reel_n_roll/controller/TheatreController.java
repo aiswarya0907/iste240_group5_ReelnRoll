@@ -2,7 +2,7 @@
 Name: Sonali Bugwandin
 University ID: 403003462
 */
-
+// controller class
 package com.nichia.reel_n_roll.controller;
 
 import com.nichia.reel_n_roll.model.Theatre;
