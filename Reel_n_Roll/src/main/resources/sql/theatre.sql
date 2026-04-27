@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS theatre (
-                                       theatre_id BIGINT PRIMARY KEY,
+                                       theatre_id BIGINT PRIMARY KEY AUTO_INCEREMENT,
                                        theatre_name VARCHAR(100),
     location VARCHAR(100),
     total_screens INT
